@@ -3,18 +3,18 @@ import {
   ChakraProvider,
   theme,
   Grid,
-  Box
 } from '@chakra-ui/react';
-import Sidebar from './layout/Sidebar';
+import Navbar from './layout/Navbar';
+import Main from './layout/Main';
 
 function App() {
+
   return (
     <ChakraProvider theme={theme}>
-      <Grid templateColumns='auto 1fr'>
-        <Sidebar />
-        <Box/>
+      <Grid h='100vh' templateRows='auto 1fr'>
+        <Navbar />
+        <Main />
       </Grid>
-
     </ChakraProvider>
   );
 }
