@@ -1,13 +1,14 @@
 import React from "react";
 import {
-    Box
+    // Box,
+    Grid
 } from "@chakra-ui/react";
 
 const Main = (props) => {
     return (
-        <Box {...props}>
+        <Grid templateColumns="auto 1fr" gap='6'>
 
-        </Box>
+        </Grid>
     );
 };
 
