@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from './layout/Navbar';
 import Main from './layout/Main';
+import './style.css';
 
 function App() {
 
