@@ -6,16 +6,43 @@ import {
 import Form from "../components/Form";
 import Preview from "../components/Preview";
 
-const Main = () => {
+// const Main = () => {
+//     const [personalInfo, setPersonalInfo] = React.useState({});
+//     const [workExperience, setWorkExperience] = React.useState([]);
+//     const [education, setEducation] = React.useState([]);
+
+
+//     return (
+//         <Box display='flex' flexDirection={['column','column','row']} justifyContent='space-between'>
+//             <Box p='6' w='full'>
+//                 <Form 
+//                     setPersonalInfo={setPersonalInfo}
+//                     setWorkExperience={setWorkExperience}
+//                     workExperience={workExperience}
+//                     education={education}
+//                     setEducation={setEducation} />
+//             </Box>
+//             <Box p='6'>
+//                 <Preview
+//                     personalInfo={personalInfo}
+//                     workExperience={workExperience}
+//                     education={education} />
+//             </Box>
+//         </Box>
+
+//     );
+// };
+
+const Main = React.forwardRef((props, ref) => {
     const [personalInfo, setPersonalInfo] = React.useState({});
     const [workExperience, setWorkExperience] = React.useState([]);
     const [education, setEducation] = React.useState([]);
 
+
     return (
-        // <Grid templateColumns={['','', "1fr auto"]} gap='6'>
-        <Box display='flex' flexDirection={['column','column','row']} justifyContent='space-between'>
+        <Box display='flex' flexDirection={['column', 'column', 'row']} justifyContent='space-between'>
             <Box p='6' w='full'>
-                <Form 
+                <Form
                     setPersonalInfo={setPersonalInfo}
                     setWorkExperience={setWorkExperience}
                     workExperience={workExperience}
@@ -26,12 +53,13 @@ const Main = () => {
                 <Preview
                     personalInfo={personalInfo}
                     workExperience={workExperience}
-                    education={education} />
+                    education={education}
+                    ref={ref} />
             </Box>
         </Box>
 
-        // </Grid>
     );
-};
+});
+
 
 export default Main;

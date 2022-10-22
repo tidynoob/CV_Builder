@@ -72,18 +72,34 @@ const Education = (props) => {
 }
 
 
-const Preview = (props) => {
+// const Preview = (props) => {
 
-    return (
-        <Box id="preview" bg='white' color='gray.800' borderWidth='1px' borderRadius='lg' p='3'>
-            <PersonalInfo personalInfo={props.personalInfo} />
-            <Box mt='1' borderBottom='1px'></Box>
-            <WorkExperience workExperience={props.workExperience} />
-            <Box mt='1' borderBottom='1px'></Box>
-            <Education education={props.education} />
+//     return (
+//         <Box id="preview" bg='white' color='gray.800' borderWidth='1px' borderRadius='lg' p='3'>
+//             <PersonalInfo personalInfo={props.personalInfo} />
+//             <Box mt='1' borderBottom='1px'></Box>
+//             <WorkExperience workExperience={props.workExperience} />
+//             <Box mt='1' borderBottom='1px'></Box>
+//             <Education education={props.education} />
 
-        </Box>
-    )
-};
+//         </Box>
+//     )
+// };
+
+class Preview extends React.Component {
+
+        render() {
+            return (
+                <Box id="preview" bg='white' color='gray.800' borderWidth='1px' borderRadius='lg' p='3'>
+                    <PersonalInfo personalInfo={this.props.personalInfo} />
+                    <Box mt='1' borderBottom='1px'></Box>
+                    <WorkExperience workExperience={this.props.workExperience} />
+                    <Box mt='1' borderBottom='1px'></Box>
+                    <Education education={this.props.education} />
+
+                </Box>
+            )
+        }
+}
 
 export default Preview;
