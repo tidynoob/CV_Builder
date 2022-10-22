@@ -1,6 +1,6 @@
-@import "~@blueprintjs/core/lib/css/blueprint.css";
+/* @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
-@import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css";
+@import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css"; */
 
 form {
     margin-top: 0;
@@ -14,4 +14,10 @@ form {
 
 .description {
     white-space: pre-line;
+}
+
+#preview {
+    height: 11in;
+    width: 8.5in;
+    aspect-ratio: 8.5 / 11;
 }

@@ -5,12 +5,17 @@ import {
     Input,
     Grid,
     Button,
-    GridItem,
-    Textarea,
+    // GridItem,
+    // Textarea,
     Box,
     Flex,
     Text,
-    useColorModeValue
+    useColorModeValue,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+    NumberInput,
 } from "@chakra-ui/react";
 import { AddIcon } from '@chakra-ui/icons';
 import { useFormik } from "formik";
@@ -20,10 +25,10 @@ import { SingleDatepicker } from "chakra-dayzed-datepicker";
 
 const SubmittedForm = (props) => {
     const id = props.id;
-    const workExperience = props.workExperience.filter((item) => item.id === id)[0];
-    const submitted = workExperience.submitted;
-    const title = workExperience.title;
-    const company = workExperience.company;
+    const education = props.education.filter((item) => item.id === id)[0];
+    const submitted = education.submitted;
+    const school = education.school;
+    const degree = education.degree;
 
     const handleEdit = () => {
         props.handleEdit(id);
@@ -36,8 +41,8 @@ const SubmittedForm = (props) => {
         (submitted && (
             <Flex mt='3' p='3' borderWidth='1px' borderRadius='md' justifyContent='space-between' alignItems='center' >
                 <Flex alignItems='flex-start' justify='center' direction='column'>
-                    <Text as='b'>{title}</Text>
-                    <Text>{company}</Text>
+                    <Text as='b'>{school}</Text>
+                    <Text>{degree}</Text>
                 </Flex>
                 <Box display='flex' justifyContent='center'>
                     <Button variant='outline' colorScheme='teal' ml='3' onClick={handleEdit} >Edit</Button>
@@ -49,11 +54,11 @@ const SubmittedForm = (props) => {
 
 }
 
-const WorkForm = (props) => {
-    const setWorkExperience = props.setWorkExperience;
-    const workExperience = props.workExperience;
-    const submitted = workExperience.filter((item) => item.id === props.id)[0].submitted;
+const EducationForm = (props) => {
+    const setEducation = props.setEducation;
+    const education = props.education;
     const id = props.id;
+    const submitted = education.filter((item) => item.id === id)[0].submitted;
 
     const dateConfig = {
         dateNavBtnProps: {
@@ -73,27 +78,24 @@ const WorkForm = (props) => {
             },
             selectedBtnProps: {
                 background: useColorModeValue('teal.100', 'rgba(129, 230, 217, 0.24)')
-                // color: "green",
             },
             todayBtnProps: {
                 borderColor: "teal.500",
             }
         },
         inputProps: {
-            //   size: "sm"
         }
     };
 
     const formik = useFormik({
         initialValues: {
-            title: '',
-            company: '',
-            description: '',
-            dateStart: new Date(),
-            dateEnd: new Date(),
+            school: '',
+            degree: '',
+            gpa: '',
+            gradDate: new Date(),
         },
         onSubmit: (values) => {
-            setWorkExperience(workExperience.map((item) => {
+            setEducation(education.map((item) => {
                 if (item.id === id) {
                     return {
                         ...item,
@@ -122,41 +124,34 @@ const WorkForm = (props) => {
             <form onSubmit={handleSubmit}>
                 <Grid p='3' gap='3' templateColumns='1fr 1fr'>
                     <FormControl isDisabled={isDisabled}>
-                        <FormLabel htmlFor="title">Title</FormLabel>
-                        <Input onChange={formik.handleChange} value={formik.values.title} type="text" id="title" aria-describedby="title-helper-text" />
+                        <FormLabel htmlFor="school">School</FormLabel>
+                        <Input onChange={formik.handleChange} value={formik.values.school} type="text" id="school" />
                     </FormControl>
                     <FormControl isDisabled={isDisabled}>
-                        <FormLabel htmlFor="company">Company</FormLabel>
-                        <Input onChange={formik.handleChange} value={formik.values.company} type="text" id="company" aria-describedby="company-helper-text" />
-                    </FormControl>
-                    <FormControl isDisabled={isDisabled}>
-                        <FormLabel htmlFor="dateStart">Start Date</FormLabel>
+                        <FormLabel htmlFor="gradDate">Graduation Date</FormLabel>
                         <SingleDatepicker
-                            name="dateStart"
-                            date={formik.values.dateStart}
-                            onDateChange={value => formik.setFieldValue('dateStart', value)}
+                            name="gradDate"
+                            date={formik.values.gradDate}
+                            onDateChange={value => formik.setFieldValue('gradDate', value)}
                             usePortal='true'
                             propsConfigs={dateConfig}
                             maxDate={new Date()}
                         />
                     </FormControl>
                     <FormControl isDisabled={isDisabled}>
-                        <FormLabel htmlFor="dateEnd">End Date</FormLabel>
-                        <SingleDatepicker
-                            name="dateEnd"
-                            date={formik.values.dateEnd}
-                            onDateChange={value => formik.setFieldValue('dateEnd', value)}
-                            usePortal='true'
-                            propsConfigs={dateConfig}
-                            maxDate={new Date()}
-                        />
+                        <FormLabel htmlFor="degree">Degree</FormLabel>
+                        <Input onChange={formik.handleChange} value={formik.values.degree} type="text" id="degree" />
                     </FormControl>
-                    <GridItem colSpan={2}>
-                        <FormControl isDisabled={isDisabled}>
-                            <FormLabel htmlFor="description">Description</FormLabel>
-                            <Textarea onChange={formik.handleChange} value={formik.values.description} type="text" id="description" aria-describedby="description-helper-text" />
-                        </FormControl>
-                    </GridItem>
+                    <FormControl isDisabled={isDisabled}>
+                        <FormLabel htmlFor="gpa">GPA</FormLabel>
+                        <NumberInput step={.1} min={0.0} max={4.0}>
+                            <NumberInputField onChange={formik.handleChange} value={formik.values.gpa} id='gpa' />
+                            <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                            </NumberInputStepper>
+                        </NumberInput>
+                    </FormControl>
                 </Grid>
                 <Button isDisabled={isDisabled} type='submit' variant='solid' colorScheme='teal' ml='3'>Submit</Button>
                 <Button onClick={handleDelete} variant='outline' colorScheme='red' ml='3'>Delete</Button>
@@ -167,17 +162,17 @@ const WorkForm = (props) => {
 
 }
 
-const WorkExperience = (props) => {
+const Education = (props) => {
 
-    const setWorkExperience = props.setWorkExperience;
-    const workExperience = props.workExperience;
+    const setEducation = props.setEducation;
+    const education = props.education;
 
     const handleAdd = () => {
-        setWorkExperience([...workExperience, { id: uuid(), submitted: false }]);
+        setEducation([...education, { id: uuid(), submitted: false }]);
     }
 
     const handleEdit = (id) => {
-        setWorkExperience(props.workExperience.map((item) => {
+        setEducation(props.education.map((item) => {
             if (item.id === id) {
                 return {
                     ...item,
@@ -189,15 +184,15 @@ const WorkExperience = (props) => {
     };
 
     const handleDelete = (id) => {
-        setWorkExperience(props.workExperience.filter((item) => item.id !== id));
+        setEducation(props.education.filter((item) => item.id !== id));
     }
 
     const forms = (
         <Box>
-            {workExperience.map((item) => (
+            {education.map((item) => (
                 <Box key={item.id}>
-                    <WorkForm setWorkExperience={setWorkExperience} workExperience={workExperience} id={item.id} handleDelete={handleDelete}/>
-                    <SubmittedForm setWorkExperience={setWorkExperience} workExperience={workExperience} id={item.id} handleEdit={handleEdit} handleDelete={handleDelete}/>
+                    <EducationForm setEducation={setEducation} education={education} id={item.id} handleDelete={handleDelete} />
+                    <SubmittedForm setEducation={setEducation} education={education} id={item.id} handleEdit={handleEdit} handleDelete={handleDelete} />
                 </Box>
             ))}
         </Box>
@@ -212,8 +207,8 @@ const WorkExperience = (props) => {
     )
 
     return (
-        <CollapseButton section='Work Experience' element={element} mt='6' />
+        <CollapseButton section='Education' element={element} mt='6' />
     );
 };
 
-export default WorkExperience;
+export default Education;
