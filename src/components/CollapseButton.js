@@ -13,7 +13,7 @@ const CollapseButton = ({section, element, mt}) => {
 
     return (
         <>
-            <Button mt={mt} leftIcon={icon} onClick={onToggle}>{section}</Button>
+            <Button mt={mt} leftIcon={icon} onClick={onToggle} width='full'>{section}</Button>
             <Collapse in={isOpen} animateOpacity>
                 {element}
             </Collapse>
