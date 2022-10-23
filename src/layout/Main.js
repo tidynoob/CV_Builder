@@ -13,8 +13,8 @@ const Main = React.forwardRef((props, ref) => {
 
     return (
         <Box display='flex' 
-            flexDirection={['column', 'column', 'column', 'column', 'row',]} 
-            alignItems={['center','center','center','center','flex-start']} 
+            flexDirection={['column', 'column', 'column', 'column', 'column',]} 
+            alignItems={['center','center','center','center','center']} 
             justifyContent='space-between'>
             <Box p='6' w='full' maxW='8.5in'>
                 <Form
